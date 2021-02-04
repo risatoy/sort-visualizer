@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap');
+.App {
+    background: #DADED4;
+}
+.bars {
+    height: 50vh;
+}
+
+.bar {
+  background-color: #3C403D;
+  margin: 2.5px;
+  width: 30px;
+  font-size: 70%;
+  font-weight: bold;
+  color: white;
+}
+
+#button {
+    background-color: Transparent;
+    border: none;
+    color: #3C403D;
+    margin: 4px 2px;
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+#button:hover {
+    outline: 2.5px solid #3C403D;
+}
+
+#slider-label{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: small;
+    color: #3C403D;
+}
+
+.container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 15px;
+    padding: 15px;
+}
+
+#visualizer-container {
+    height: 35vh;
+}
+
