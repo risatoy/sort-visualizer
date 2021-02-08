@@ -1,4 +1,5 @@
 import {updateDiv} from "./visualize.js"
+import * as constants from '../constants.js'
 
 export function selectionSort(array, divs){
     const len = array.length;
@@ -7,10 +8,10 @@ export function selectionSort(array, divs){
     let min = i;
 
     for (let j = i + 1; j < len; j++) {
-      updateDiv(divs[j - 1], "orange");
-      updateDiv(divs[j - 1], "green");
-      updateDiv(divs[j], "orange");
-      updateDiv(divs[j], "green");
+      updateDiv(divs[j - 1], constants.yellow);
+      updateDiv(divs[j - 1], constants.green);
+      updateDiv(divs[j], constants.yellow);
+      updateDiv(divs[j], constants.green);
 
       if (array[min] > array[j]) {
         min = j;
@@ -18,19 +19,19 @@ export function selectionSort(array, divs){
     }
 
     if (min !== i) {
-      updateDiv(divs[min], "red");
-      updateDiv(divs[i], "red");
+      updateDiv(divs[min], constants.red);
+      updateDiv(divs[i], constants.red);
 
       let tmp = array[i];
       array[i] = array[min];
-      updateDiv(divs[i], "red", array[min]);
+      updateDiv(divs[i], constants.red, array[min]);
       array[min] = tmp;
-      updateDiv(divs[min], "red", tmp);
+      updateDiv(divs[min], constants.red, tmp);
 
-      updateDiv(divs[i], "green");
-      updateDiv(divs[min], "green");
+      updateDiv(divs[i], constants.green);
+      updateDiv(divs[min], constants.green);
     }
 
-    updateDiv(divs[i], "purple")
+    updateDiv(divs[i], constants.green) // the part where sorted part is completed
   }
 }
