@@ -1,7 +1,8 @@
 import React from 'react';
 import {mergeSort} from '../sortAlgorithms/mergeSort.js';
 import {quickSort} from '../sortAlgorithms/quickSort.js';
-import {selectionSort} from '../sortAlgorithms/selectionSort.js'
+import {selectionSort} from '../sortAlgorithms/selectionSort.js';
+import {insertionSort} from '../sortAlgorithms/insertionSort.js';
 import './sortVisualizer.css';
 
 var ANIMATION_SPEED_MS = 10;
@@ -63,7 +64,10 @@ export default class SortingVisualizer extends React.Component {
         selectionSort(this.state.array, divs);
     }
 
-    insertionSort() {}
+    insertionSort() {
+        const divs = document.querySelector('#visualizer-container').children;
+        insertionSort(this.state.array, divs);
+    }
 
     bubbleSort() {}
 
