@@ -1,4 +1,4 @@
-import {updateDiv} from "./visualize.js"
+import {updateDiv} from "../sortVisualizer/sortVisualizer.jsx";
 import * as constants from '../constants.js'
 
 export function mergeSort(array, start, end, divs, speed) {

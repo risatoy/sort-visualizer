@@ -7,17 +7,22 @@ import './sortVisualizer.css';
 
 var ANIMATION_SPEED_MS = 10;
 
+let delay = 0;
+let processes = [];
+
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             array: [],
+            divs: [],
         };
     }
 
     componentDidMount() {
         this.generateArray();
+        this.generateDivs();
     }
 
     generateArray() {
@@ -30,7 +35,12 @@ export default class SortingVisualizer extends React.Component {
         this.state.array = array;
     }
 
+    generateDivs() {
+        this.state.divs = document.querySelector('#visualizer-container').children;
+    }
+
     resetArray() {
+        stopProcess(); // to kill running processes
         this.generateArray()
         for (let i = 0; i < this.state.array.length; i++) {
             const arrayBars = document.getElementsByClassName('bar');
@@ -50,23 +60,31 @@ export default class SortingVisualizer extends React.Component {
     }
 
     mergeSort() {
-        const divs = document.querySelector('#visualizer-container').children;
-        mergeSort(this.state.array, 0, this.state.array.length - 1, divs, ANIMATION_SPEED_MS);
+        if (processes.length === 0) {
+            delay = 0;
+            mergeSort(this.state.array, 0, this.state.array.length - 1, this.state.divs, ANIMATION_SPEED_MS);
+        }
     }
 
     quickSort() {
-        const divs = document.querySelector('#visualizer-container').children;
-        quickSort(this.state.array, 0, this.state.array.length - 1, divs, ANIMATION_SPEED_MS);
+        if (processes.length === 0) {
+            delay = 0;
+            quickSort(this.state.array, 0, this.state.array.length - 1, this.state.divs, ANIMATION_SPEED_MS);
+        }
     }
 
     selectionSort() {
-        const divs = document.querySelector('#visualizer-container').children;
-        selectionSort(this.state.array, divs, ANIMATION_SPEED_MS);
+        if (processes.length === 0) {
+            delay = 0;
+            selectionSort(this.state.array, this.state.divs, ANIMATION_SPEED_MS);
+        }
     }
 
     insertionSort() {
-        const divs = document.querySelector('#visualizer-container').children;
-        insertionSort(this.state.array, divs, ANIMATION_SPEED_MS);
+        if (processes.length === 0) {
+            delay = 0;
+            insertionSort(this.state.array, this.state.divs, ANIMATION_SPEED_MS);
+        }
     }
 
     bubbleSort() {}
@@ -133,4 +151,25 @@ function arraysAreEqual(arrayOne, arrayTwo) {
         if (arrayOne[i] !== arrayTwo[i]) return false;
     }
     return true;
+}
+
+export function updateDiv(
+  currentElement,
+  backgroundColor,
+  speed,
+  height
+) {
+    delay++
+    process = window.setTimeout(() => {
+    currentElement.style.backgroundColor = backgroundColor;
+    currentElement.style.height = `${height*2}px`;
+    }, (delay += speed));
+    processes.push(process);
+}
+
+function stopProcess() {
+    while (processes.length !== 0 ) {
+        clearTimeout(processes[0]);
+        processes.shift();
+     }
 }
