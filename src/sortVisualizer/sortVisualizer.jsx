@@ -87,7 +87,7 @@ export default class SortingVisualizer extends React.Component {
         }
     }
 
-    bubbleSort() {}
+//     bubbleSort() {}
 
 //     testSortingAlgorithms() {
 //         for (let i = 0; i < 100; i++) {
@@ -133,9 +133,9 @@ export default class SortingVisualizer extends React.Component {
                 <button id="button" onClick={() => this.quickSort()}>QUICK SORT</button>
                 <button id="button" onClick={() => this.selectionSort()}>SELECTION SORT</button>
                 <button id="button" onClick={() => this.insertionSort()}>INSERTION SORT</button>
-                <button id="button" onClick={() => this.bubbleSort()}>BUBBLE SORT</button>
+{/*                 <button id="button" onClick={() => this.bubbleSort()}>BUBBLE SORT</button> */}
             </selection>
-            <button id="button" onClick={() => this.testSortingAlgorithms()}>TEST ALGOS</button>
+{/*             <button id="button" onClick={() => this.testSortingAlgorithms()}>TEST ALGOS</button> */}
         </div>
         );
     }
