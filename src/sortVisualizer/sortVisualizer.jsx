@@ -5,6 +5,9 @@ import {selectionSort} from '../sortAlgorithms/selectionSort.js';
 import {insertionSort} from '../sortAlgorithms/insertionSort.js';
 import './sortVisualizer.css';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRedo, faStepForward, faPlay } from "@fortawesome/free-solid-svg-icons";
+
 var ANIMATION_SPEED_MS = 10;
 
 let delay = 0;
@@ -18,6 +21,12 @@ export default class SortingVisualizer extends React.Component {
             array: [],
             divs: [],
         };
+
+        this.sort = "mergeSort"
+
+        this.funcQueue = []
+        this.inProcess = false
+        this.isSorted = false
     }
 
     componentDidMount() {
@@ -26,11 +35,11 @@ export default class SortingVisualizer extends React.Component {
     }
 
     generateArray() {
-//         let array = [17, 39, 28, 6];
-        let array = []
-        for (let i = 0; i < 10; i++) {
-            array.push(randomIntFromInterval(5, 100));
-        }
+        let array = [17, 39, 28, 6];
+        // let array = []
+        // for (let i = 0; i < 10; i++) {
+        //     array.push(randomIntFromInterval(5, 100));
+        // }
         this.setState({array});
         this.state.array = array;
     }
@@ -47,6 +56,9 @@ export default class SortingVisualizer extends React.Component {
             arrayBars[i].style.backgroundColor = '#3C403D';
             arrayBars[i].style.height = `${this.state.array[i] * 2}px`;
         }
+        this.funcQueue = []
+        this.isSorted = false
+        document.querySelector("#countstep").style.display = "none"
     }
 
     changeSpeed(speed) {
@@ -59,32 +71,76 @@ export default class SortingVisualizer extends React.Component {
         }
     }
 
-    mergeSort() {
-        if (processes.length === 0) {
-            delay = 0;
-            mergeSort(this.state.array, 0, this.state.array.length - 1, this.state.divs, ANIMATION_SPEED_MS);
+    start() {
+        if (this.sort === "mergeSort") this.mergeSort();
+        if (this.sort === "quickSort") this.quickSort();
+        if (this.sort === "selectionSort") this.selectionSort();
+        if (this.sort === "insertionSort") this.insertionSort();
+
+        while (this.funcQueue.length > 0) {
+            (this.funcQueue.shift())();
         }
+    }
+
+    forward(){
+        if (this.funcQueue.length === 0 && this.inProcess === false && this.isSorted === false) {
+            if (this.sort === "mergeSort") this.mergeSort();
+            if (this.sort === "quickSort") this.quickSort();
+            if (this.sort === "selectionSort") this.selectionSort();
+            if (this.sort === "insertionSort") this.insertionSort();
+
+            document.querySelector("#countstep").style.display = "block"
+            document.querySelector("#countall").innerHTML = this.funcQueue.length
+        } 
+        
+        if (this.funcQueue.length >= 0) {
+            document.querySelector("#count").innerHTML = this.funcQueue.length
+            if (this.funcQueue.length === 0) {
+                this.inProcess = false;
+                this.isSorted = true;
+            } else {
+                this.inProcess = true;
+                (this.funcQueue.shift())();
+            }
+        }
+    }
+
+    selectSort(e) {
+        this.sort = e.target.value
+        let sortButton = document.getElementById(e.target.id);
+        let selectedButton = document.querySelector(".clicked");
+
+        if (selectedButton) selectedButton.classList.remove("clicked");
+        sortButton.classList.add("clicked");
+    }
+
+    mergeSort() {
+        this.funcQueue = mergeSort(this.state.array, 0, this.state.array.length - 1, this.state.divs, ANIMATION_SPEED_MS);
+        // if (processes.length === 0) {
+        //     delay = 0;
+        //     mergeSort(this.state.array, 0, this.state.array.length - 1, this.state.divs, ANIMATION_SPEED_MS);
+        // }
     }
 
     quickSort() {
-        if (processes.length === 0) {
-            delay = 0;
-            quickSort(this.state.array, 0, this.state.array.length - 1, this.state.divs, ANIMATION_SPEED_MS);
-        }
+        this.funcQueue = quickSort(this.state.array, 0, this.state.array.length - 1, this.state.divs, ANIMATION_SPEED_MS);
+
+        // if (processes.length === 0) {
+        //     delay = 0;
+        //     quickSort(this.state.array, 0, this.state.array.length - 1, this.state.divs, ANIMATION_SPEED_MS);
+        // }
     }
 
     selectionSort() {
-        if (processes.length === 0) {
-            delay = 0;
-            selectionSort(this.state.array, this.state.divs, ANIMATION_SPEED_MS);
-        }
+        this.funcQueue = selectionSort(this.state.array, this.state.divs, ANIMATION_SPEED_MS);
+        // if (processes.length === 0) {
+        //     delay = 0;
+        //     selectionSort(this.state.array, this.state.divs, ANIMATION_SPEED_MS);
+        // }
     }
 
     insertionSort() {
-        if (processes.length === 0) {
-            delay = 0;
-            insertionSort(this.state.array, this.state.divs, ANIMATION_SPEED_MS);
-        }
+        this.funcQueue = insertionSort(this.state.array, this.state.divs, ANIMATION_SPEED_MS);
     }
 
 //     bubbleSort() {}
@@ -107,7 +163,30 @@ export default class SortingVisualizer extends React.Component {
 
         return (
         <div className="App">
-            <selection className="container-box">
+            <div className="container-box">
+                <button class="button sortButton clicked" id="mergesort" value="mergeSort" onClick={(e) => this.selectSort(e)}>MERGE SORT</button>
+                <button class="button sortButton" id="quicksort" value="quickSort" onClick={(e) => this.selectSort(e)}>QUICK SORT</button>
+                <button class="button sortButton" id="selectionsort" value="selectionSort" onClick={(e) => this.selectSort(e)}>SELECTION SORT</button>
+                <button class="button sortButton" id="insertsort" value="insertionSort" onClick={(e) => this.selectSort(e)}>INSERTION SORT</button>
+{/*                 <button id="button" onClick={() => this.bubbleSort()}>BUBBLE SORT</button> */}
+            </div>
+{/*             <button id="button" onClick={() => this.testSortingAlgorithms()}>TEST ALGOS</button> */}
+            <div id="control-container">
+                <div>
+                    <button class="button" onClick={() => this.resetArray()}><FontAwesomeIcon icon={faRedo} /></button>
+                    <small class="text-muted">Generate array</small>
+                </div>
+                <div>
+                    <button class="button" onClick={() => this.start() }><FontAwesomeIcon icon={faPlay} /></button>
+                    <small class="text-muted">Run all</small>
+                </div>
+                <div>
+                    <button class="button" onClick={() => this.forward()}><FontAwesomeIcon icon={faStepForward} /></button>
+                    <small class="text-muted">Step by step</small>
+                </div>
+            </div>
+
+          {/* <div className="container-box">
                 <div id="slider-label" md={1}>slow</div>
                     <form id="sliderData">
                         <input id="slider"
@@ -118,24 +197,17 @@ export default class SortingVisualizer extends React.Component {
                                onChange={e => this.changeSpeed(e.target.value)}/>
                     </form>
                 <div id="slider-label" md={1}>fast</div>
-            </selection>
-            <selection className="bars container-box" id="visualizer-container">
+            </div> */}
+
+            <div className="bars container-box" id="visualizer-container">
                 {array.map((value, idx) => (
                     <div className='bar'
                      key={idx}
                      style={{height: `${value*2}px`}}>
                     </div>
                 ))}
-            </selection>
-            <button id="button" onClick={() => this.resetArray()}>GENERATE NEW ARRAY</button>
-            <selection className="container-box">
-                <button id="button"onClick={() => this.mergeSort()}>MERGE SORT</button>
-                <button id="button" onClick={() => this.quickSort()}>QUICK SORT</button>
-                <button id="button" onClick={() => this.selectionSort()}>SELECTION SORT</button>
-                <button id="button" onClick={() => this.insertionSort()}>INSERTION SORT</button>
-{/*                 <button id="button" onClick={() => this.bubbleSort()}>BUBBLE SORT</button> */}
-            </selection>
-{/*             <button id="button" onClick={() => this.testSortingAlgorithms()}>TEST ALGOS</button> */}
+            </div>
+            <div id="countstep">Steps: <span id="count">0</span>/<span id="countall">0</span></div>
         </div>
         );
     }
@@ -165,6 +237,13 @@ export function updateDiv(
     currentElement.style.height = `${height*2}px`;
     }, (delay += speed));
     processes.push(process);
+}
+
+
+export let wrapFunction = function(fn, context, params) {
+    return function() {
+        fn.apply(context, params);
+    };
 }
 
 function stopProcess() {

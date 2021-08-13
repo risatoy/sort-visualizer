@@ -13,13 +13,22 @@
   color: white;
 }
 
-#button {
+.button {
     background-color: Transparent;
     border: none;
     color: #3C403D;
     margin: 4px 2px;
-    font-family: 'Josefin Sans', sans-serif;
     letter-spacing: 0.1em;
+}
+
+.sortButton {
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 0.7rem;
+    font-weight: bold;
+}
+
+.sortButton:nth-last-child(1){
+    border-right: none;
 }
 
 #button:hover {
@@ -27,7 +36,6 @@
 }
 
 #slider-label{
-    font-family: 'Josefin Sans', sans-serif;
     font-size: small;
     color: #3C403D;
 }
@@ -44,3 +52,34 @@
     height: 35vh;
 }
 
+.clicked {
+    background-color: #457b9d;
+    color: white;
+}
+
+#control-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#control-container .button{
+    font-size: 1.2rem;
+    margin: 0 15px;
+}
+
+#control-container .button:hover {
+    color: grey;
+}
+
+#control-container div small{
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    vertical-align: bottom;
+    color: grey;
+}
+
+#countstep {
+    display: none;
+}

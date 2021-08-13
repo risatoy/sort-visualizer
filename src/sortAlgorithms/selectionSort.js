@@ -1,17 +1,18 @@
-import {updateDiv} from "../sortVisualizer/sortVisualizer.jsx";
+import {updateDiv, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
 import * as constants from '../constants.js'
 
 export function selectionSort(array, divs, speed){
-    const len = array.length;
+  let funcQueue = [];
+  const len = array.length;
 
   for (let i = 0; i < len; i++) {
     let min = i;
 
     for (let j = i + 1; j < len; j++) {
-      updateDiv(divs[j - 1], constants.yellow, speed);
-      updateDiv(divs[j - 1], constants.green, speed);
-      updateDiv(divs[j], constants.yellow, speed);
-      updateDiv(divs[j], constants.green, speed);
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[j - 1], constants.yellow, speed]));
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[j - 1], constants.green, speed]));
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[j], constants.yellow, speed]));
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[j], constants.green, speed]));
 
       if (array[min] > array[j]) {
         min = j;
@@ -19,19 +20,20 @@ export function selectionSort(array, divs, speed){
     }
 
     if (min !== i) {
-      updateDiv(divs[min], constants.red, speed);
-      updateDiv(divs[i], constants.red, speed);
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[min], constants.red, speed]));
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[i], constants.red, speed]));
 
       let tmp = array[i];
       array[i] = array[min];
-      updateDiv(divs[i], constants.red, speed, array[min]);
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[i], constants.red, speed, array[min]]));
       array[min] = tmp;
-      updateDiv(divs[min], constants.red, speed, tmp);
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[min], constants.red, speed, tmp]));
 
-      updateDiv(divs[i], constants.green, speed);
-      updateDiv(divs[min], constants.green, speed);
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[i], constants.green, speed]));
+      funcQueue.push(wrapFunction(updateDiv, this, [divs[min], constants.green, speed]));
     }
 
-    updateDiv(divs[i], constants.green, speed) // the part where sorted part is completed
+    funcQueue.push(wrapFunction(updateDiv, this, [divs[i], constants.green, speed])) // the part where sorted part is completed
   }
+  return funcQueue
 }
