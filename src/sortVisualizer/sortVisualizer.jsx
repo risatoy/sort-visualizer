@@ -107,7 +107,7 @@ export default class SortingVisualizer extends React.Component {
 
         return (
         <div className="App">
-            <selection className="container">
+            <selection className="container-box">
                 <div id="slider-label" md={1}>slow</div>
                     <form id="sliderData">
                         <input id="slider"
@@ -119,7 +119,7 @@ export default class SortingVisualizer extends React.Component {
                     </form>
                 <div id="slider-label" md={1}>fast</div>
             </selection>
-            <selection className="bars container" id="visualizer-container">
+            <selection className="bars container-box" id="visualizer-container">
                 {array.map((value, idx) => (
                     <div className='bar'
                      key={idx}
@@ -128,7 +128,7 @@ export default class SortingVisualizer extends React.Component {
                 ))}
             </selection>
             <button id="button" onClick={() => this.resetArray()}>GENERATE NEW ARRAY</button>
-            <selection className="container">
+            <selection className="container-box">
                 <button id="button"onClick={() => this.mergeSort()}>MERGE SORT</button>
                 <button id="button" onClick={() => this.quickSort()}>QUICK SORT</button>
                 <button id="button" onClick={() => this.selectionSort()}>SELECTION SORT</button>
