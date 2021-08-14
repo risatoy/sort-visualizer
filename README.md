@@ -1,48 +1,28 @@
 # Sort Visualizer
-Web app built using React to visualize sorting algorithms such as merge sort, quick sort, selection sort, and insertion sort. 
+Responsive visualizer built using React for popular sorting algorithms. This is an attempt to help in learning the algorithms by visualizing.
 
 Deployed and available at https://risatoy.github.io/sort-visualizer/
 
-## Table of contents
-* [Technologies](#technologies)
-* [Setup](#setup)
-* [Algorithms](#algorithms)
+### Features
+* Sort step by step
+* Start and reset the execution
+* Generate random array of numbers of sorting
 
 
 ## Technologies
 Project is created with:
 * React Framework
-* Javascript
-* HTML/CSS
+* Bootstrap
+* Javascript + pure CSS for Animations
 
-## Setup
+## Run in your local
 To run this project, install it locally using npm:
 ```
+$ git clone https://github.com/risatoy/sort-visualizer.git
 $ cd ../sort-visualizer
 $ npm install
 $ npm start
 ```
 
-## Algorithms
-### Merge Sort
-This algorithm divide the input array into two in the same length
-until the point where the arrays can no longer be divided.
-When the array size become 1 (can't divide any longer), it will start merging by comparing the numbers in the same array
-and replacing the smaller number on left.
-
-Time Complexity: O(n log n)
-
-### Quick Sort
-This algorithm use a pivot that randomly picked from the input array. Using the pivot,
-it will part the rest of the numbers into two groups; numbers smaller than pivot and numbers bigger than pivot.
-Then, it will place them like below
-
-[numbers smaller than pivot] pivot [numbers bigger than pivot]
-
-This continues until inside the [] become all sorted.
-
-Time Complexity: O(n log n) but worst case O(n^2)
-
-### Selection Sort
-
-### Insertion Sort
+## Contributing Guide
+Feel free to contribute to this repo by raising the PR, if you see any areas to improve or fix bugs in this repo!
