@@ -1,4 +1,4 @@
-import {updateDiv, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
+import {updateDiv, updateDivSwap, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
 import * as constants from '../constants.js'
 
 // to store the last pivot
@@ -48,12 +48,12 @@ function partition(array, low, high, divs, speed) {
   }
 
   array[low] = array[right];
-  funcQueue.push(wrapFunction(updateDiv, this, [divs[low], constants.green, speed, array[right]]));
+  // funcQueue.push(wrapFunction(updateDiv, this, [divs[low], constants.green, speed, array[right]]));
   array[right] = pivot_item;
-  if (prevPivot) {
-    funcQueue.push(wrapFunction(updateDiv, this, [divs[prevPivot], constants.green, speed]));
-  }
-  funcQueue.push(wrapFunction(updateDiv, this, [divs[right], constants.yellow, speed, pivot_item]));
+  // if (prevPivot) {
+  //   funcQueue.push(wrapFunction(updateDiv, this, [divs[prevPivot], constants.green, speed]));
+  // }
+  funcQueue.push(wrapFunction(updateDivSwap, this, [divs[low], divs[right], constants.green, speed]));
 
   return right;
 }
@@ -61,9 +61,9 @@ function partition(array, low, high, divs, speed) {
 function swap(array, firstPos, secondPos, divs, speed) {
   const temp = array[firstPos];
   array[firstPos] = array[secondPos];
-  funcQueue.push(wrapFunction(updateDiv, this, [divs[firstPos], constants.red, speed, array[secondPos]]));
+  funcQueue.push(wrapFunction(updateDivSwap, this, [divs[firstPos], divs[secondPos], constants.green, speed]));
   array[secondPos] = temp;
-  funcQueue.push(wrapFunction(updateDiv, this, [divs[secondPos], constants.red, speed, temp]));
+  // funcQueue.push(wrapFunction(updateDiv, this, [divs[secondPos], constants.red, speed, temp]));
 
   // making the divs back to green after swap
   funcQueue.push(wrapFunction(updateDiv, this, [divs[firstPos], constants.green, speed]));

@@ -6,11 +6,19 @@
 
 .bar {
   background-color: #3C403D;
-  margin: 2.5px;
+  margin: 3px;
+  padding: 5px;
   width: 30px;
   font-size: 70%;
   font-weight: bold;
   color: white;
+  justify-content: center;
+  display: flex;
+  transition: background-color 200ms ease-in-out;
+}
+
+.bar span{
+    align-self: flex-end;
 }
 
 .button {

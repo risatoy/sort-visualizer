@@ -1,4 +1,4 @@
-import {updateDiv, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
+import {updateDiv, updateDivSwap, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
 import * as constants from '../constants.js'
 
 export function selectionSort(array, divs, speed){
@@ -25,9 +25,8 @@ export function selectionSort(array, divs, speed){
 
       let tmp = array[i];
       array[i] = array[min];
-      funcQueue.push(wrapFunction(updateDiv, this, [divs[i], constants.red, speed, array[min]]));
+      funcQueue.push(wrapFunction(updateDivSwap, this, [divs[i], divs[min], constants.red, speed]));
       array[min] = tmp;
-      funcQueue.push(wrapFunction(updateDiv, this, [divs[min], constants.red, speed, tmp]));
 
       funcQueue.push(wrapFunction(updateDiv, this, [divs[i], constants.green, speed]));
       funcQueue.push(wrapFunction(updateDiv, this, [divs[min], constants.green, speed]));

@@ -1,4 +1,4 @@
-import {updateDiv, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
+import {updateDiv, updateDivSwap, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
 import * as constants from '../constants.js';
 
 
@@ -13,12 +13,13 @@ export function insertionSort(array, divs, speed) {
         let j = i-1;
         while (j > -1 && current < array[j]) {
             array[j+1] = array[j];
-            funcQueue.push(wrapFunction(updateDiv, this, [divs[j + 1], constants.green, speed, array[j]]))
+            funcQueue.push(wrapFunction(updateDiv, this, [divs[j], constants.yellow, speed]))
+            funcQueue.push(wrapFunction(updateDivSwap, this, [divs[j + 1], divs[j], constants.green, speed]))
             j--;
-            funcQueue.push(wrapFunction(updateDiv, this, [divs[j + 1], constants.yellow, speed, array[j]]))
+            // funcQueue.push(wrapFunction(updateDiv, this, [divs[j + 1], constants.yellow, speed, array[j]]))
         }
         array[j+1] = current;
-        funcQueue.push(wrapFunction(updateDiv, this, [divs[j + 1], constants.green, speed, current]))
+        // funcQueue.push(wrapFunction(updateDiv, this, [divs[j + 1], constants.green, speed, current]))
     }
     return funcQueue
 }

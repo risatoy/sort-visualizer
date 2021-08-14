@@ -1,4 +1,4 @@
-import {updateDiv, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
+import {updateDiv, updateDivSwap, wrapFunction} from "../sortVisualizer/sortVisualizer.jsx";
 import * as constants from '../constants.js'
 
 let funcQueue = [];
@@ -23,19 +23,19 @@ function merge(array, start, mid, end, divs, speed) {
 
   let result = [];
   let ind = 0;
-
+  
   for (let i = start; i <= end; i++) {
     if (l > mid) {
         result[ind] = array[r];
-        funcQueue.push(wrapFunction(updateDiv, this, [divs[r], constants.red, speed, array[r]]));
+        funcQueue.push(wrapFunction(updateDiv, this, [divs[r], constants.red, speed]));
         r += 1
     } else if (array[l] < array[r] || r > end) {
         result[ind] = array[l];
-        funcQueue.push(wrapFunction(updateDiv, this, [divs[l], constants.red, speed, array[l]]));
+        funcQueue.push(wrapFunction(updateDiv, this, [divs[l], constants.red, speed]));
         l += 1
     } else {
         result[ind] = array[r];
-        funcQueue.push(wrapFunction(updateDiv, this, [divs[r], constants.red, speed, array[r]]));
+        funcQueue.push(wrapFunction(updateDiv, this, [divs[r], constants.red, speed]));
         r += 1
     }
     ind +=1

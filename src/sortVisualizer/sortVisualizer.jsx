@@ -35,7 +35,7 @@ export default class SortingVisualizer extends React.Component {
     }
 
     generateArray() {
-        let array = [17, 39, 28, 6];
+        let array = [4,3,2,1,2];
         // let array = []
         // for (let i = 0; i < 10; i++) {
         //     array.push(randomIntFromInterval(5, 100));
@@ -54,7 +54,8 @@ export default class SortingVisualizer extends React.Component {
         for (let i = 0; i < this.state.array.length; i++) {
             const arrayBars = document.getElementsByClassName('bar');
             arrayBars[i].style.backgroundColor = '#3C403D';
-            arrayBars[i].style.height = `${this.state.array[i] * 2}px`;
+            arrayBars[i].style.height = `${this.state.array[i] * 10}px`;
+            arrayBars[i].innerHTML = `<span>${this.state.array[i]}</span>`
         }
         this.funcQueue = []
         this.isSorted = false
@@ -203,7 +204,8 @@ export default class SortingVisualizer extends React.Component {
                 {array.map((value, idx) => (
                     <div className='bar'
                      key={idx}
-                     style={{height: `${value*2}px`}}>
+                     style={{height: `${value*10}px`}}>
+                    <span>{value}</span>
                     </div>
                 ))}
             </div>
@@ -234,10 +236,35 @@ export function updateDiv(
     delay++
     process = window.setTimeout(() => {
     currentElement.style.backgroundColor = backgroundColor;
-    currentElement.style.height = `${height*2}px`;
+    if (height) {
+        currentElement.style.height = `${height*10}px`;
+        currentElement.innerHTML = `<span>${height}</span>`;
+    }
     }, (delay += speed));
     processes.push(process);
 }
+
+export function updateDivSwap(
+    currentElement,
+    swapElement,
+    backgroundColor,
+    speed
+  ) {
+      delay++
+      process = window.setTimeout(() => {
+        
+        currentElement.style.backgroundColor = backgroundColor;
+        swapElement.style.backgroundColor = backgroundColor;
+
+        const temp = currentElement.innerText
+        currentElement.style.height = `${swapElement.innerText*10}px`
+        currentElement.innerHTML = `<span>${swapElement.innerText}</span>`;
+
+        swapElement.style.height = `${temp*10}px`;
+        swapElement.innerHTML = `<span>${temp}</span>`;
+      }, (delay += speed));
+      processes.push(process);
+  }
 
 
 export let wrapFunction = function(fn, context, params) {
