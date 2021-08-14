@@ -103,6 +103,10 @@ export default class SortDetails extends React.Component {
                         <p>Insertion sort works by inserting elements from an unsorted array into a sorted subsection of the array, one item at a time.</p>
                     </div>
                 </div>
+                <div id="footer">
+                    Made with ♥ by 
+                    <a href="https://github.com/risatoy"> Risa Toyoshima </a>
+                </div>
             </div>
         )
     }

@@ -1,6 +1,7 @@
 #sort-description-container {
     text-align: center;
     margin-top: 7rem;
+    padding: 50px 0;
     background-color: #a8dadc;
 }
 
@@ -29,4 +30,9 @@
 
 .bigo-compornent span{
     font-size: 0.8rem;
+}
+
+#footer {
+    margin: auto;
+    padding: 20px;
 }

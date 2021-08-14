@@ -35,11 +35,11 @@ export default class SortingVisualizer extends React.Component {
     }
 
     generateArray() {
-        let array = [4,3,2,1,2];
-        // let array = []
-        // for (let i = 0; i < 10; i++) {
-        //     array.push(randomIntFromInterval(5, 100));
-        // }
+        // let array = [4,3,2,1,2];
+        let array = []
+        for (let i = 0; i < 5; i++) {
+            array.push(randomIntFromInterval(1, 5));
+        }
         this.setState({array});
         this.state.array = array;
     }
