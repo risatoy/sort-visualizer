@@ -1,0 +1,32 @@
+#sort-description-container {
+    text-align: center;
+    margin-top: 7rem;
+    background-color: #a8dadc;
+}
+
+#sort-description-container div{
+    max-width: 40rem;
+    margin: auto;
+    padding: 15px;
+}
+
+#sort-description-container h2 {
+    margin: auto;
+}
+
+.bigo-compornent {
+    display: flex;
+    justify-content: center;
+}
+
+.bigo-compornent td{
+    padding: 0 20px;
+}
+
+.bigo-compornent div{
+    font-size: 0.7rem;
+}
+
+.bigo-compornent span{
+    font-size: 0.8rem;
+}
